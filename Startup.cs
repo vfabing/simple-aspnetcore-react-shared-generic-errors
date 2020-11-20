@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using simple_aspnetcore_react_shared_generic_errors.ErrorHandling;
+using System.Text.Json.Serialization;
 
 namespace simple_aspnetcore_react_shared_generic_errors
 {
@@ -21,7 +23,14 @@ namespace simple_aspnetcore_react_shared_generic_errors
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddMvcOptions(options =>
+            {
+                options.Filters.Add<MyAppErrorFilter>();
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(options.JsonSerializerOptions.PropertyNamingPolicy, false));
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

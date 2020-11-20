@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using simple_aspnetcore_react_shared_generic_errors.Exceptions;
 
 namespace simple_aspnetcore_react_shared_generic_errors.Controllers
 {
@@ -34,6 +35,18 @@ namespace simple_aspnetcore_react_shared_generic_errors.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+        
+        [HttpGet("{id}")]
+        public IEnumerable<WeatherForecast> GetById(int id)
+        {
+            throw new EntityNotFoundException();
+        }
+
+        [HttpPost("status/{status}")]
+        public IEnumerable<WeatherForecast> ChangeStatus(string status)
+        {
+            throw new InvalidStatusChangeException(new string[] { "Committed", "Dismissed" });
         }
     }
 }
