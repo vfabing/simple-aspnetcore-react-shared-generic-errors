@@ -1,0 +1,1 @@
+# simple-aspnetcore-react-shared-generic-errors
