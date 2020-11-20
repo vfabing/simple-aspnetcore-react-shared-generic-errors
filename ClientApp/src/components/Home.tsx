@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useAxios } from '../custom-hooks/useAxios';
 
 export const Home = () => {
+
+  const axios = useAxios();
+
+  useEffect(() => {
+    (async () => {
+      if (axios) {
+        try {
+          let result = await axios.get("/weatherforecast/1");
+          console.debug("result", result);
+        } catch (error) {
+          console.error("error", error);
+        }
+      }
+    })()
+  }, [axios]);
+  
   return (
     <div>
       <h1>Hello, world!</h1>

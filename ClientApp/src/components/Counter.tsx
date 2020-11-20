@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAxios } from '../custom-hooks/useAxios';
 
 export const Counter = () => {
 
@@ -7,6 +8,21 @@ export const Counter = () => {
   const incrementCounter = () => {
     setCurrentCount(currentCount + 1);
   }
+
+  const axios = useAxios();
+
+  useEffect(() => {
+    (async () => {
+      if (axios) {
+        try {
+          let result = await axios.get("/weatherforecast/1");
+          console.debug("result", result);
+        } catch (error) {
+          console.error("error", error);
+        }
+      }
+    })()
+  }, [axios]);
 
   return (
     <div>
