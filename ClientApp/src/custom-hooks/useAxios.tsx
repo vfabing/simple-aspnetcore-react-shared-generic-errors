@@ -31,8 +31,8 @@ export const AxiosProvider: React.FunctionComponent<{ children: ReactNode }> = (
         console.debug("initialize Axios");
         let axiosInstance = axios.create();
 
-        axiosInstance.interceptors.response.use((value: AxiosResponse<any>) => {
-            return value;
+        axiosInstance.interceptors.response.use((response: AxiosResponse<any>) => {
+            return response;
         }, (error) => {
             const problemDetails: ProblemDetails = error.response.data;
             console.debug("problemDetails", problemDetails);
@@ -44,9 +44,9 @@ export const AxiosProvider: React.FunctionComponent<{ children: ReactNode }> = (
                     toast.error("EntityNotFound!");
                     break;
                 default:
-                    // Do nothing to let specific custom business exception handling.
+                    // Do nothing and let specific custom business exception handling.
             }
-            return error;
+            return Promise.reject(error);
         });
 
         return { axiosInstance };
