@@ -103,7 +103,7 @@ namespace simple_aspnetcore_react_shared_generic_errors
                 if (context.Type == typeof(ProblemDetails))
                 {
                     var codeSchema = context.SchemaGenerator.GenerateSchema(typeof(ApiErrorCode), context.SchemaRepository);
-                    var additionalDetailsSchema = new OpenApiSchema { AdditionalProperties = new OpenApiSchema { Type = "object" } };
+                    var additionalDetailsSchema = context.SchemaGenerator.GenerateSchema(typeof(object), context.SchemaRepository);
 
                     schema.Properties.Add("code", codeSchema);
                     schema.Properties.Add("additionalDetails", additionalDetailsSchema);

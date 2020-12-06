@@ -3,26 +3,11 @@ import React from "react";
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { createContext, ReactNode, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
+import { ApiErrorCode, ProblemDetails } from "../my-app-client";
 
 type AxiosContext = { axiosInstance?: AxiosInstance };
 const initialContext: AxiosContext = { axiosInstance: undefined };
 const AxiosReactContext = createContext<AxiosContext>(initialContext);
-
-export enum ApiErrorCode {
-    Unknown = "unknown",
-    EntityNotFound = "entityNotFound",
-    InvalidStatusChange = "invalidStatusChange"
-}
-
-export interface ProblemDetails {
-    additionalDetails: any;
-    type?: string | undefined;
-    title?: string | undefined;
-    status?: number | undefined;
-    detail?: string | undefined;
-    instance?: string | undefined;
-    code?: ApiErrorCode;
-}
 
 // 1 component to define an Axios Instance in a Context
 export const AxiosProvider: React.FunctionComponent<{ children: ReactNode }> = (props) => {

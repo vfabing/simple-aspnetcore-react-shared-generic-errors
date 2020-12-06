@@ -1,5 +1,6 @@
 import React from "react";
 import { useAxios } from "../custom-hooks/useAxios";
+import { WeatherForecastClient } from "../my-app-client";
 
 const Status: React.FunctionComponent<{}> = (props) => {
 
@@ -8,7 +9,8 @@ const Status: React.FunctionComponent<{}> = (props) => {
     const changeStatus = async (status: string) => {
         if (!axios) throw "Trying to call changeStatus with axios undefined";
         try {
-            let result = await axios.post(`/weatherforecast/status/${status}`);
+            let client = new WeatherForecastClient(undefined, axios);
+            let result = await client.status(status);
             console.debug("result", result);
         } catch (error) {
             console.error("error", error);

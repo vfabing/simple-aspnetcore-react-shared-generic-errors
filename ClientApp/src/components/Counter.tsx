@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAxios } from '../custom-hooks/useAxios';
+import { WeatherForecastClient } from '../my-app-client';
 
 export const Counter = () => {
 
@@ -15,7 +16,8 @@ export const Counter = () => {
     (async () => {
       if (axios) {
         try {
-          let result = await axios.get("/weatherforecast/1");
+          let client = new WeatherForecastClient(undefined, axios);
+          let result = await client.weatherForecast(1);
           console.debug("result", result);
         } catch (error) {
           console.error("error", error);
